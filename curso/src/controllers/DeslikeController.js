@@ -1,7 +1,6 @@
 const Dev = require('../models/Dev');
 //5d7d4d064f2bef19bcdf9b94 - id marcos ludgerio
 //5d7d548ec87cd0273c3dfa0a - id camila tereza
-//5d7d54abc87cd0273c3dfa0b - id vitor amorim
 module.exports = {
     async store(req, res) {
         const {devId} = req.params;
@@ -14,7 +13,7 @@ module.exports = {
             return res.status(400).json({ error: "Dev not exist" });
         }
 
-        loggedDev.likes.push(targetDev._id);
+        loggedDev.deslikes.push(targetDev._id);
 
         await loggedDev.save();
         
