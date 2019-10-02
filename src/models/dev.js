@@ -1,31 +1,22 @@
-const { Schema, model} = require('mongoose');
+const { Schema, model } = require('mongoose');
 
 const DevSchema = new Schema({ //tabela no banco de dados
     nome: {
-        type = String,
-        required = true //campo obrigatório
+        type: String,
+        required: true //campo obrigatório
     },
     user: {
-        type = String,
-        required = true //campo obrigatório
+        type: String,
+        required: true //campo obrigatório
     },
     bio: String,
     avatar: {
-        type = String,
-        required = true //campo obrigatório
+        type: String,
+        required: true //campo obrigatório
     },
-    like: [{
-        type = String,
-        required = true //campo obrigatório
-    }],
-    deslikes: [{
-        type = String,
-        required = true //campo obrigatório
-    }],
-    
 }, {
     timestamps: true,
 });
 
 //expotar a tabela
-module.exports('Dev', DevSchema)
+module.exports = model('Dev', DevSchema);
