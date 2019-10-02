@@ -14,6 +14,15 @@ const DevSchema = new Schema({ //tabela no banco de dados
         type = String,
         required = true //campo obrigatório
     },
+    like: [{
+        type = String,
+        required = true //campo obrigatório
+    }],
+    deslikes: [{
+        type = String,
+        required = true //campo obrigatório
+    }],
+    
 }, {
     timestamps: true,
 });
