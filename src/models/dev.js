@@ -14,6 +14,14 @@ const DevSchema = new Schema({ //tabela no banco de dados
         type: String,
         required: true //campo obrigatório
     },
+    likes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Dev',
+    }],
+    deslikes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Dev',
+    }],
 }, {
     timestamps: true,
 });
