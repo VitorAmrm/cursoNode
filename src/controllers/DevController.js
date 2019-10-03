@@ -8,13 +8,20 @@ module.exports = {
         // console.log(req.body.nome);
         const { nome } = req.body;
 
+        const useExist = await Dev.findOne({ user: nome });
+        console.log(useExist);
+        if(useExist){
+            console.log("Usuário encontrado");
+            return res.json(useExist);
+        }
+
         const response = await axios.get(`https://api.github.com/users/${nome}`);
 
-        const {name: user, bio, avatar_url: avatar} = response.data;
+        const { name: user, bio, avatar_url: avatar } = response.data;
 
-        const dev = await Dev.create({ 
+        const dev = await Dev.create({
             nome,
-            user, 
+            user,
             bio,
             avatar
         });
