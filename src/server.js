@@ -5,7 +5,24 @@ const express = require('express');
 const routes = require('./routes');
 
 //criando o servidor
-const server = express();
+const app = express();
+
+const server = require('http').Server(app);
+
+//import o socket.io
+const io = require('socket.io')(server);
+
+const connectedUsers = {}
+
+io.on('connection', socket => {
+
+    
+    const { user } = socket.handshake.query;
+
+    //connectedUsers[id_usuario] = socket.id;
+    connectedUsers[user] = socket.id;
+
+});
 
 //importando o mongodb
 //mongodb+srv://marcosLudgerio:35235638@cluster0-8nbmu.mongodb.net/dev?retryWrites=true&w=majority
@@ -21,14 +38,20 @@ mongoose.connect("mongodb+srv://marcosLudgerio:35235638@cluster0-8nbmu.mongodb.n
 });
 
 
+app.use((req, res, next) => {
+    req.io = io;
+    req.connectedUsers = connectedUsers;
+    return next;
+});
+
 //usando o cors
-server.use(cors());
+app.use(cors());
 
 //configurando as requisições para json
-server.use(express.json());
+app.use(express.json());
 
 //importando o arquivo routes.js
-server.use(routes);
+app.use(routes);
 
 server.listen(8000, () => {
     console.log('Vai dar merda!');

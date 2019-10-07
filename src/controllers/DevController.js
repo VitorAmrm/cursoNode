@@ -10,7 +10,7 @@ module.exports = {
 
         //instância do banco do usuário logado
         const loggedDev = await Dev.findById(user);
-        console.log(loggedDev.nome);
+        
         //todos os devs que o usuário logado não deu like nem deslike
         const users = await Dev.find({
             $and: [ //and, todas as condições devem ser atendidas
@@ -27,7 +27,6 @@ module.exports = {
 
         const useExist = await Dev.findOne({ nome: nome });
         if (useExist) {
-            console.log("Usuário encontrado");
             return res.json(useExist);
         }
 

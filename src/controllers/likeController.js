@@ -2,7 +2,7 @@ const Dev = require('../models/Dev');
 
 module.exports = {
     async store(req, res) {
-        //console.log(req.params.devId);
+        console.log(req.io, req.connectedUsers);
         const { devId } = req.params;
         // console.log(req.headers.user);
         const { user } = req.headers;
@@ -22,7 +22,6 @@ module.exports = {
         if(targetDev.likes.includes(loggedDev._id)){
             console.log("Ui, papai. Hoje tem!");          
         }
-
         //Add o usuário que recebeu o like na listas de likes do dev logado
         loggedDev.likes.push(targetDev._id);
 
