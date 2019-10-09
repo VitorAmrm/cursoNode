@@ -32,7 +32,7 @@ module.exports = {
 
         const response = await axios.get(`https://api.github.com/users/${nome}`);
 
-        const { name: user, bio, avatar_url: avatar } = response.data;
+        const { login: user, bio, avatar_url: avatar } = response.data;
 
         const dev = await Dev.create({
             nome,

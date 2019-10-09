@@ -15,13 +15,8 @@ const io = require('socket.io')(server);
 const connectedUsers = {}
 
 io.on('connection', socket => {
-
-    
     const { user } = socket.handshake.query;
-
-    //connectedUsers[id_usuario] = socket.id;
     connectedUsers[user] = socket.id;
-
 });
 
 //importando o mongodb
@@ -41,7 +36,8 @@ mongoose.connect("mongodb+srv://marcosLudgerio:35235638@cluster0-8nbmu.mongodb.n
 app.use((req, res, next) => {
     req.io = io;
     req.connectedUsers = connectedUsers;
-    return next;
+    
+    return next();
 });
 
 //usando o cors
@@ -54,5 +50,5 @@ app.use(express.json());
 app.use(routes);
 
 server.listen(8000, () => {
-    console.log('Vai dar merda!');
+    console.log('Vai dar merda, vai!');
 });

@@ -2,7 +2,6 @@ const Dev = require('../models/Dev');
 
 module.exports = {
     async store(req, res) {
-        console.log(req.io, req.connectedUsers);
         const { devId } = req.params;
         // console.log(req.headers.user);
         const { user } = req.headers;
@@ -21,6 +20,16 @@ module.exports = {
         //Se houver troca troca de likes
         if(targetDev.likes.includes(loggedDev._id)){
             console.log("Ui, papai. Hoje tem!");          
+            const loggedSocket = req.connectedUsers[user];
+            const targetSocket = req.connectedUsers[devId];
+
+            if(loggedSocket){
+                req.io.to(loggedSocket).emit('match', targetDev);
+            }
+
+            if(targetSocket){
+                req.io.to(targetSocket).emit('match', loggedDev);
+            }
         }
         //Add o usuário que recebeu o like na listas de likes do dev logado
         loggedDev.likes.push(targetDev._id);
