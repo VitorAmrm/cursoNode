@@ -12,13 +12,7 @@ module.exports = {
         const loggedDev = await Dev.findById(user);
         
         //todos os devs que o usuário logado não deu like nem deslike
-        const users = await Dev.find({
-            $and: [ //and, todas as condições devem ser atendidas
-                { _id: { $ne: user } }, //ne:user - não é o user
-                { _id: { $nin: loggedDev.likes } }, //nin - não está na lista de likes do dev logado
-                { _id: { $nin: loggedDev.deslikes } }, //nin - não está na lista de deslikes do dev logado
-            ],
-        });
+        const users = await Dev.find();
         return res.json(users);
     },
     async store(req, res) {
