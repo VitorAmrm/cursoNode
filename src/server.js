@@ -45,7 +45,7 @@ app.use(express.json());
 //importando o arquivo routes.js
 app.use(routes);
 
-server.listen(8000, () => {
+server.listen(process.env.PORT, () => {
     console.log('Vai dar merda, vai!');
     console.log('retirei o cors');
 });
